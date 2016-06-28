@@ -34,10 +34,12 @@ def fillItems(user_dict):
                 print "Failed "+user+" , retrying"
                 time.sleep(4)
             
-    for post in posts:
-        url=post['url']
-        user_dict[user][url]=1
-        all_items[url]=1
+        for post in posts:
+    
+         url=post['url']
+         print url
+         user_dict[user][url]=1
+         all_items[url]=1
     
     #Fill in missing items with 0
     for ratings in user_dict.values():
@@ -46,4 +48,4 @@ def fillItems(user_dict):
                 ratings[item]=0.0
                 
                 
-                
+              

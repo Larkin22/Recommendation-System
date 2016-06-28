@@ -98,3 +98,31 @@ def getRecommendations(prefs,person,similarity=sim_pearson):
  rankings.reverse( )
  return rankings
 #import pydelicious
+ 
+def transformPrefs(prefs):
+    result={}
+    for person in prefs:
+        for item in prefs[person]:
+            
+          result.setdefault(item,{})
+        
+          #Flip item and person
+          result[item][person]=prefs[person][item]
+    return result
+    
+def calculateSimilarItems(prefs,n=10):
+    
+   result={}
+   itemPrefs=transformPrefs(prefs)
+   c=0
+   for item in itemPrefs(prefs):
+       #status update for large datasets
+       c+=1
+       if c%100==0: print "%d /%d" % (c,len(itemPrefs))
+       #Find the most similar items to this one
+       scores=topMatches(itemPrefs,item,n=n,similarity=sim_distance)
+       result[item]=scores
+   return result
+
+   
+    
